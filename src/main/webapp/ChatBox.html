@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Interface</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        .chatContainer {
+            width: 300px;
+            margin: 20px auto;
+            overflow-y: auto;
+            max-height: 400px;
+            padding: 10px;
+        }
+
+        .userMessage {
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 15px 15px 0 15px;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            max-width: 70%;
+            align-self: flex-end;
+        }
+
+        .botMessage {
+            background-color: #eee;
+            color: #333;
+            border-radius: 15px 15px 15px 0;
+            padding: 10px 15px;
+            margin-bottom: 10px;
+            max-width: 70%;
+            align-self: flex-start;
+        }
+
+        .inputContainer {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        #userInput {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        #sendButton {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px 20px;
+            margin-left: 10px;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #sendButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="chatContainer" id="chatBox"></div>
+    <div class="inputContainer">
+        <input type="text" id="userInput" placeholder="Type your message...">
+        <button id="sendButton" onclick="sendMessage()">Send</button>
+    </div>
+    <script>
+        function sendMessage() {
+            var userInput = document.getElementById("userInput").value;
+            if (userInput.trim() === "") {
+                return; // Don't send empty messages
+            }
+            var chatBox = document.getElementById("chatBox");
+            var userMessage = document.createElement("div");
+            userMessage.className = "userMessage";
+            userMessage.textContent = userInput;
+            chatBox.appendChild(userMessage);
+            chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+            document.getElementById("userInput").value = ""; // Clear input field
+
+            // Send message to backend and receive response (for demonstration, I'm just adding a bot message)
+            setTimeout(function() {
+                var botMessage = document.createElement("div");
+                botMessage.className = "botMessage";
+                botMessage.textContent = "Response from the chatbot";
+                chatBox.appendChild(botMessage);
+                chatBox.scrollTop = chatBox.scrollHeight; // Scroll to bottom
+            }, 500); // Simulate delay for demonstration
+        }
+    </script>
+</body>
+</html>
